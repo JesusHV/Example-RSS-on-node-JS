@@ -1,0 +1,5 @@
+<div id="lineas" ng-init="getLineas()" ng-class="{'divdisabled':divdisabled}">
+	<div id="linea" ng-repeat="linea in lineas" class="linea linea-{{ linea.linea }}" ng-click="chooseLine(linea.linea)">
+		<span class="number">{{ linea.linea }}</span>
+	</div>
+</div>

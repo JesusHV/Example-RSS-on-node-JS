@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="ametroApp">
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<title>Ametro (Beta)</title>
+	<link rel="stylesheet" href="../css/reset.css" />
+	<link rel="stylesheet" href="../css/ametro.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/evil-icons/1.7.2/evil-icons.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/icono/1.3.0/icono.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/evil-icons/1.7.2/evil-icons.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
+	<script src="../js/libs/moment.js"></script>
+	<script src="../js/libs/es.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script>
+	<script src="../js/ametroservices.js"></script>
+	<script src="../js/ametroroutes.js"></script>
+	<script src="../js/ametrocontroller.js"></script>
+	<script src="../js/ametroapp.js"></script>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li ng-class="{'active':active=='link-1'}"><a href="#/" ng-click="active='link-1'"><i class="icono-list"></i><span>Mostrar reportes</span></a></li>
+				<li ng-class="{'active':active=='link-2'}"><a href="#/newreport" ng-click="active='link-2'"><i class="icono-commentEmpty"></i><span>Reportar</span></a></li>
+				<li ng-class="{'active':active=='link-3'}"><a href="#/" ng-click="active='link-3'"><i class="icono-folder"></i><span>Mis reportes</span></a></li>
+				<li ng-class="{'active':active=='link-4'}"><a href="#/" ng-click="active='link-4'"><i class="icono-sliders"></i><span>Settings</span></a></li>
+			</ul>
+		</nav>
+	</header>
+	<section id="wrap">
+		<article id="content">
+			<!-- <h1>ametroMX</h1> -->
+			<div class="layout" ng-view ng-init="loaderGeneral = true"></div>
+			<div id="loader-wrap" ng-show="loaderGeneral">
+				<div id="loader" data-icon="ei-spinner" data-size="l"></div>
+			</div>
+		</article>
+	</section>
+	<footer></footer>
+</body>
+</html>

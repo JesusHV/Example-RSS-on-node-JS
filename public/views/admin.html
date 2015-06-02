@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="adminApp">
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<title>Ametro (Beta)</title>
+	<link rel="stylesheet" href="../css/reset.css" />
+	<link rel="stylesheet" href="../css/admin.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/evil-icons/1.7.2/evil-icons.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/icono/1.3.0/icono.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/evil-icons/1.7.2/evil-icons.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
+	<script src="../js/libs/moment.js"></script>
+	<script src="../js/libs/es.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script>
+	<script src="../js/libs/angular-dragandrop.js"></script>
+	<script src="../js/adminservices.js"></script>
+	<script src="../js/admincontroller.js"></script>
+	<script src="../js/ametroapp.js"></script>
+</head>
+<body ng-controller="adminController">
+	<header>
+	</header>
+	<section id="wrap">
+		<article id="content">
+			<h1>ametroMX</h1>
+			<div class="editLines">
+				<div name="lines">
+					<select name="lineas" ng-model="linea" ng-change="selectLinea(linea)" id="lineas">
+						<option value="" disabled selected>Seleccione una linea</option>
+						<option value="{{ linea.linea }}" ng-repeat="linea in lineas">Linea {{ linea.linea }}</option>
+					</select>
+					<button ng-click="newLine()">Agregar Linea</button>
+				</div>
+				<div><input type="text" placeholder="Nombre línea" ng-if="lineaActiva && lineaNueva" ng-model="lineaInfo.linea"></div>
+				<div><input type="text" placeholder="Orden" ng-if="lineaActiva" ng-model="lineaInfo.orden"></div>
+				<form name="nuevaEstacion" ng-if="lineaActiva" method="POST" ng-submit="addEstacion(newEstation)">
+					<div class="estacion">
+						<h2>Agregar estación a esta línea:</h2>
+						<input required type="text" ng-model="newEstation.estacion" placeholder="Nombre nueva estación" />
+						<div  class="image-container dropzone" file-dropzone="[image/png, image/jpeg, image/gif]" file="newEstation.imagen" file-name="newEstation.imageFileName" data-max-file-size="3">
+							<img ng-src="{{newEstation.imagen}}" />
+							<input accept="image/*" type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" />
+						</div>
+					</div>
+					<button type="submit" ng-disabled="nuevaEstacion.$invalid">Agregar</button>
+				</form>
+				<form name="LinesUpdate" ng-if="lineaActiva" id="LinesUpdate" method="POST" ng-submit="saveLine(lineaInfo)">
+					<h2>Estaciones:</h2>
+					<div id="estaciones-list">
+						<div class="estacion" ng-repeat="estacion in lineaInfo.estaciones">
+							<h3>{{ estacion.estacion }}</h3>
+							<input type="text" ng-model="estacion.estacion" />
+								<img ng-src="data:image/png;base64,{{ estacion.imagen }}" alt="">
+						</div>
+					</div>
+					<button type="submit">Guardar</button>
+				</form>
+				<button ng-if="lineaActiva" ng-click="deleteLine(lineaInfo)">Eliminar línea</button>
+			</div>
+		</article>
+	</section>
+	<footer></footer>
+</body>
+</html>

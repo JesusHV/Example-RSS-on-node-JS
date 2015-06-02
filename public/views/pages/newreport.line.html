@@ -1,0 +1,6 @@
+<div id="newReport" class="linea-{{linea}}">
+	<div class="estacion estacion-{{$index}}" id="{{estacion.estacion}}" ng-class="{'zoom-out':hideEstation, 'oculto':hideElement}" ng-repeat="estacion in estaciones" ng-click="selectEstation($index,estacion.estacion)">
+		<img ng-src="data:image/png;base64,{{ estacion.imagen }}" alt="">
+		<h3>{{ estacion.estacion }}</h3>
+	</div>
+</div>

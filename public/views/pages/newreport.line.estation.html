@@ -1,0 +1,18 @@
+<div id="newReport" class="linea-{{linea}} divdisabled">
+	<div class="estacion estacion-activa">
+			<img ng-src="data:image/png;base64,{{ logo }}" alt="">
+			<h3>{{ estacion }}</h3>
+	</div>
+	<form action="/ametro/reporte" name="newreport" method="POST" enctype="multipart/form-data">
+		<h2>Nuevo reporte</h2>
+		<h3>Línea: {{ linea }}</h3>
+		<h3>Usuario: {{ usuario.nombre }}</h3>
+		<input type="hidden" name="linea" value="{{linea}}">
+		<input type="hidden" name="email" value="{{usuario.email}}">
+		<input type="hidden" name="email" value="{{estacion}}">
+		<label for="comentario">Comentario: </label>
+		<textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario"></textarea>
+		<input type="file" name="imagen">
+		<button>Enviar</button>
+	</form>
+</div>

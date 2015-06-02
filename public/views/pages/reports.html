@@ -1,0 +1,38 @@
+<ul id="reports">
+	<li ng-repeat="report in reports">
+		<div class="reporte {{$index}}" ng-click="info(report._id, $index)">
+			<div>
+				<img ng-src="data:image/png;base64,{{report.logo}}" alt="{{ report.estacion }}">
+				<!-- <img ng src="http://www.chicagobusiness.com/images/icons/default-user-icon.png" alt="{{ report.estacion }}"> -->
+			</div>
+			<div>
+				<p>
+					<span>Reporte en: </span><span>{{ report.estacion }}</span>
+				</p>
+				<p>
+					<span>Línea: {{ report.linea }} </span><span class="date">{{ report.date | amCalendar }}</span>
+				</p>
+			</div>
+		</div>
+		<div class="more" ng-class="{'details':report.open}">
+			<h3>Reportes de:</h3>
+
+			<ul>
+				<li ng-repeat="usr in report.details.reporte.usuarios">
+					<span>{{ usr.usuario }}</span><span class="date-report">{{ usr.fecha | amCalendar }}</span>
+
+				</li>
+			</ul>
+			<h3>Comentarios</h3>
+			<div class="comments">
+				<ul>
+					<li ng-repeat="comment in report.details.reporte.comentarios">
+						<p><span>{{ comment.user_name }}</span>|<span>{{ comment.fecha | amCalendar }}</span></p>
+						<img ng-src="data:image/png;base64,{{ comment.imagen }}" alt="reportPhoto">
+						<p>{{ comment.comentario }}</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</li>
+</ul>

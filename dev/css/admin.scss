@@ -1,0 +1,203 @@
+// _config.scss
+$colors: (
+	bg-1: #ffab40,
+	primary: rgba(255, 117, 0, 1),
+	primary-1: rgba(255, 165, 0, 0.4),
+	primary-2: #ffcc80,
+	primary-3: #ffa726,
+	primary-4: #ffb74d,
+	primary-8: #e65100,
+	primary-9: #bf360c,
+	red-1: #ff8a80,
+	red-2: #f44336,
+	sky: #09A6E4,
+	gray-1: #fafafa,
+	gray-2: #f5f5f5,
+	gray-3: #eeeeee,
+	gray-4: #e0e0e0,
+	gray-5: #bdbdbd,
+	gray-6: #9e9e9e,
+	gray-7: #757575,
+	gray-8: #616161,
+	gray-9: #424242
+);
+$breakpoints: (
+	small: 767px,
+	medium: 992px,
+	large: 1200px
+);
+@keyframes change {
+	0% {
+		transform: translate(-50%, -80%) scaleX(1);
+	}
+	100% {
+		transform: translate(-50%, -80%) scaleX(0);
+	}
+}
+
+// _functions.scss
+@function color($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  }
+  @warn "Unknown '#{$key}' in $colors.";
+  @return null;
+}
+@mixin respond-to($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		@media (max-width: #{map-get($breakpoints, $breakpoint)}) {
+			@content;
+		}
+	}
+	@else {
+		@warn "Unfortunately, no value could be retrieved from '#{$breakpoint}'. "
+		+ "Please make sure it is defined in '$breakpoints' map.";
+	}
+}
+
+@import url('//fonts.googleapis.com/css?family=Roboto:400,500,700,100,300');
+@font-face {
+font-family: 'MetroDF';
+font-style: normal;
+font-weight: normal;
+src: local('MetroDF'), url('METRO-DF.woff') format('woff');
+}
+
+html, body {
+	color: color(gray-9);
+	font-family: 'Roboto', sans-serif;
+	height: 100%;
+	min-height: 100%;
+	width: 100%;
+}
+
+h1 {
+	font-size: 3.5em;
+}
+h2 {
+	font-size: 2.5em;
+	margin: 10px 0;
+}
+input[type="password"],
+input[type="email"],
+input[type="text"] {
+	padding: 10px;
+	border: none;
+	border-bottom: solid 2px color(bg-1);
+	transition: border 0.3s;
+}
+input[type="password"]:focus,
+input[type="password"].focus,
+input[type="email"]:focus,
+input[type="email"].focus,
+input[type="text"]:focus,
+input[type="text"].focus {
+	border-bottom: solid 2px color(primary);
+}
+input[type="password"]:invalid,
+input[type="password"].invalid,
+input[type="email"]:invalid,
+input[type="email"].invalid,
+input[type="text"]:invalid,
+input[type="text"].invalid {
+	border: 0;
+	border-bottom: solid 2px color(red-1);
+	box-shadow: none;
+	outline-style: none;
+}
+input[type="password"]:invalid:focus,
+input[type="password"].invalid:focus,
+input[type="email"]:invalid:focus,
+input[type="email"].invalid:focus,
+input[type="text"]:invalid:focus,
+input[type="text"].invalid:focus {
+	border: 0;
+	border-bottom: solid 2px color(red-2);
+	box-shadow: none;
+	outline-style: none;
+}
+header {
+	background-color: color(primary-8);
+	color: #fff;
+	max-width: 100%;
+	width: calc(100%);
+	border-bottom: 3px solid color(gray-6);
+
+	> nav {
+		> ul {
+			display: flex;
+			justify-content: center;
+			list-style: none;
+
+			> li {
+				padding: 1em;
+
+				> a {
+					color: #fff;
+					display: block;
+
+					> span {
+						margin-left: 5px;
+					}
+				}
+
+				&:hover {
+					background-color: color(primary-1);
+				}
+
+				&.active {
+					background-color: color(primary-1);
+				}
+
+				@include respond-to(small) {
+
+					> a{
+						> span {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+section#wrap {
+	background: color(bg-1);
+	min-height: 100%;
+	padding: 50px;
+}
+section#wrap, article#content {
+	width: 100%;
+	overflow: hidden;
+
+}
+
+div#estaciones-list {
+	width: 50%;
+	columns: 3;
+
+	> div.estacion {
+		> input, img {
+			display: inline-block;
+			vertical-align: top;
+		}
+	}
+}
+
+div.dropzone {
+	border: 2px dashed white;
+	display: inline-block;
+	height: 70px;
+	position: relative;
+	vertical-align: bottom;
+	width: 70px;
+
+	> img {
+		left: 50%;
+		max-height: 36px;
+		max-width: 36px;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50% , -50%);
+	}
+}

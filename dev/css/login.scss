@@ -1,0 +1,282 @@
+// _config.scss
+$colors: (
+	bg-1: #ffab40,
+	primary: rgba(255, 117, 0, 1),
+	primary-1: rgba(255, 165, 0, 0.4),
+	primary-3: #ff5722,
+	primary-8: #d84315,
+	red-1: #ff8a80,
+	red-2: #f44336,
+	sky: #09A6E4,
+	gray-1: #fafafa,
+	gray-2: #f5f5f5,
+	gray-3: #eeeeee,
+	gray-4: #e0e0e0,
+	gray-5: #bdbdbd,
+	gray-6: #9e9e9e,
+	gray-7: #757575,
+	gray-8: #616161,
+	gray-9: #424242
+);
+$breakpoints: (
+	small: 767px,
+	medium: 992px,
+	large: 1200px
+);
+@keyframes change {
+	0% {
+		transform: translate(-50%, -80%) scaleX(1);
+	}
+	100% {
+		transform: translate(-50%, -80%) scaleX(0);
+	}
+}
+
+// _functions.scss
+@function color($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  }
+  @warn "Unknown '#{$key}' in $colors.";
+  @return null;
+}
+@mixin respond-to($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		@media (max-width: #{map-get($breakpoints, $breakpoint)}) {
+			@content;
+		}
+	}
+	@else {
+		@warn "Unfortunately, no value could be retrieved from '#{$breakpoint}'. "
+		+ "Please make sure it is defined in '$breakpoints' map.";
+	}
+}
+
+@import url('//fonts.googleapis.com/css?family=Roboto:400,500,700,100,300');
+@font-face {
+	font-family: 'MetroDF';
+	font-style: normal;
+	font-weight: normal;
+	src: local('MetroDF'), url('METRO-DF.woff') format('woff');
+}
+
+html, body {
+	font-family: 'Roboto', sans-serif;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+h1 {
+	font-size: 3.5em;
+}
+h2 {
+	font-size: 2.5em;
+	margin: 10px 0;
+}
+input[type="password"],
+input[type="email"],
+input[type="text"] {
+	padding: 10px;
+	border: none;
+	border-bottom: solid 2px color(bg-1);
+	transition: border 0.3s;
+}
+input[type="password"]:focus,
+input[type="password"].focus,
+input[type="email"]:focus,
+input[type="email"].focus,
+input[type="text"]:focus,
+input[type="text"].focus {
+	border-bottom: solid 2px color(primary);
+}
+input[type="password"]:invalid,
+input[type="password"].invalid,
+input[type="email"]:invalid,
+input[type="email"].invalid,
+input[type="text"]:invalid,
+input[type="text"].invalid {
+	border: 0;
+	border-bottom: solid 2px color(red-1);
+	box-shadow: none;
+	outline-style: none;
+}
+input[type="password"]:invalid:focus,
+input[type="password"].invalid:focus,
+input[type="email"]:invalid:focus,
+input[type="email"].invalid:focus,
+input[type="text"]:invalid:focus,
+input[type="text"].invalid:focus {
+	border: 0;
+	border-bottom: solid 2px color(red-2);
+	box-shadow: none;
+	outline-style: none;
+}
+section#wrap {
+	background: color(bg-1);
+}
+section#wrap, article#content {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+
+	> h1 {
+		color: color(gray-7);
+		left: 50%;
+		padding: 30px;
+		position: absolute;
+		transform: translate(-50%, 20%);
+		// font-family: 'MetroDF';
+		// font-size: 2.2em;
+		text-rendering: optimizeLegibility ;
+	}
+}
+
+form[name="loginForm"], form[name="registerForm"] {
+	background: white;
+	box-shadow: 23px 33px 20px -30px black;
+	display: block;
+	left: 50%;
+	max-width: 500px;
+	margin: auto;
+	padding: 30px;
+	backface-visibility: hidden;
+	position: absolute;
+	top: 50%;
+	transform: translateX(-50%) scaleX(1);
+	transform-origin: 100%;
+	width: 100%;
+
+	> input, h2, span.error {
+		display: block;
+		margin: 10px auto 0;
+		width: 80%;
+	}
+
+	> h2 {
+		color: color(gray-5);
+
+	}
+
+	> input {
+		color: color(gray-8);
+	}
+
+	> span.error {
+		font-size: .8em;
+		font-weight: 300;
+		color: color(red-2);
+	}
+
+	> button {
+		background: transparent;
+		border: 0;
+		display: block;
+		margin: auto;
+		padding: 20px;
+		text-align: center;
+
+		> * {
+			fill: color(primary);
+			transition: all 0.3s;
+		}
+
+		&:disabled {
+			> * {
+				fill: color(red-1);
+			}
+		}
+
+		&:valid:hover {
+			cursor: pointer;
+			> * {
+				fill: color(primary-8);
+			}
+		}
+	}
+
+	> span.switch {
+		bottom: -15%;
+		color: color(primary-8);
+		cursor: pointer;
+		position: absolute;
+		right: 5%;
+
+		&:hover{
+			> * {
+				fill: color(primary-3);
+			}
+			color: color(primary-3);
+		}
+
+		> span {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		> .icon {
+			vertical-align: middle;
+		}
+
+		> * {
+			fill: color(primary-8);
+		}
+	}
+
+}
+
+div.flip-container {
+	height: 320px;
+	left: 50%;
+	max-width: 560px;
+	padding: 30px;
+	perspective: 1000;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -80%) scaleX(1);
+	width: 80%;
+
+
+	@include respond-to(small) {
+	transform: translate(-50%, -50%) scaleX(1);
+	}
+
+}
+.flip-container.flip .flipper {
+	transform: rotateY(180deg);
+}
+
+.flipper {
+	position: relative;
+	transform-style: preserve-3d;
+	transition: 1.5s cubic-bezier(.53,.39,.25,.7);
+}
+
+form[name="loginForm"] {
+	&.ng-hide-add {
+		animation: .3s change linear;
+	}
+
+	&.ng-hide-remove {
+		animation: .3s change linear reverse;
+	}
+}
+form[name="registerForm"] {
+	transform-origin: 0;
+	transform: translateX(50%) rotateY(180deg);
+
+	&.ng-hide-add {
+		animation: .3s change linear;
+	}
+
+	&.ng-hide-remove {
+		animation: .3s change linear reverse;
+	}
+
+}
+
+.success-loader {
+	opacity: 0;
+	transform: scale(20);
+	transition: transform 1s ease-out, opacity .5s ease .5s !important;
+}
